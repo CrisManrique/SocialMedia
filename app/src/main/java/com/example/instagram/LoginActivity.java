@@ -23,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if(ParseUser.getCurrentUser() != null) goMainActivity();
+
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -43,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if(e != null){
                     Log.e(TAG, "Error logging in", e);
-                    Toast.makeText(LoginActivity.this, "Error logging in", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Wrong username or password", Toast.LENGTH_LONG).show();
                     return;
                 }
-                
+                Toast.makeText(LoginActivity.this, "Logging in!", Toast.LENGTH_SHORT).show();
                 goMainActivity();
                 
             }
@@ -57,5 +60,6 @@ public class LoginActivity extends AppCompatActivity {
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+        finish();
     }
 }
