@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -37,15 +38,16 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPicture;
     private Button btnSubmit;
     private ImageView ivImage;
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etCaption = findViewById(R.id.etCaption);
-        btnPicture = findViewById(R.id.btnPicture);
+        etCaption = findViewById(R.id.etDescription);
+        btnPicture = findViewById(R.id.btnCaptureImage);
         btnSubmit = findViewById(R.id.btnSubmit);
-
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         btnSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
